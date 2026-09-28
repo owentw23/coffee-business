@@ -11,3 +11,4 @@ Append a concise dated line after substantive vault work. Link the relevant sess
 
 - 2026-09-28: Initialized Obsidian project memory and copied 39 official ECC skills into `.agents/skills/`; see [[Projects/Sessions/2026-09-28-project-setup]] and `ECC-SKILLS.md`.
 - 2026-09-28: Moved the vault into the main project repository and published it as private GitHub repo `owentw23/coffee-business`; see [[Projects/Sessions/2026-09-28-github-repo]].
+- 2026-09-28: Documented Codex and Claude shared-folder handoff; see [[Projects/Sessions/2026-09-28-shared-workspace]].

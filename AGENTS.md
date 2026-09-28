@@ -17,3 +17,7 @@ Do not modify original files in `Knowledge/Raw/` during normal ingestion. Raw do
 ## Project-local ECC skills
 
 ECC skills are available under `.agents/skills/`. Read and apply a skill when it is relevant to the task; do not load the full collection by default. `ECC-SKILLS.md` records provenance and update scope. Project memory requirements in this file and `Knowledge/VAULT-RULES.md` remain in force.
+
+## Shared workspace with Claude Code
+
+The user reports that Claude Code can access this same project folder. Codex and Claude should use the same `Knowledge/` vault, `PROGRESS.md`, `PROJECT_PLAN.md`, and Git checkout as the shared handoff. At the start of work, check `git status` and read the current handoff. Do not overwrite, reset, or revert another assistant's uncommitted work. Avoid editing the same file concurrently; when overlap is possible, coordinate through the user and update the shared handoff after a milestone. The user remains the coordinator; do not assume the assistants can message each other directly.

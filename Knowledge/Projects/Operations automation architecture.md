@@ -67,3 +67,7 @@ All imagery is her real photos. AI only designs layout and base: info posts with
 - Section 2: data model; bean forecast, finance, and insights logic.
 - Section 3: carousel agent pipeline.
 - Then: written spec, self-review, owner review, implementation plan.
+
+## Section 2 — data model and logic (approved 2026-09-30)
+
+Tables: `menu_items`, `modifiers`, `ingredients`, `recipe_lines`, `modifier_lines`, `orders`, `order_items` (price and cost snapshot at sale), `customers` (pre-order name + mobile), `stock_movements` (append-only ledger), `purchases`, `expenses` (incl. recurring), `weekly_insights` (shared by the digest and the carousel agent), `settings`, `job_runs`. Bean forecast, finance and insights are SQL. Regular = 3+ pre-orders; gone quiet = 14 days. Scrutiny and proposed amendments: [[Resources/Similar systems review]].

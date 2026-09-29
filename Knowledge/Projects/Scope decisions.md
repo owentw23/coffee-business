@@ -24,3 +24,4 @@ Record **agreed** scope choices with date, who decided, rationale, and evidence.
 - 2026-09-30, project owner: section 1 architecture approved with one change — the bot does not message customers. The partner contacts rejected customers herself, so customers do not need Telegram; the order page collects name and mobile number instead.
 - 2026-09-30, project owner: receive payments via personal PayNow (not UEN).
 - 2026-09-30, project owner: MCST/URA premises rules are settled externally; not a project concern.
+- 2026-09-30, project owner: section 2 data model approved. "Regular" = 3+ pre-orders; "gone quiet" = no order in **14 days** (changed from proposed 21). Partner accepts tapping "Ordered as suggested" / "Arrived" and entering bean prices.

@@ -6,13 +6,13 @@ Updated: 2026-09-30. This file is the authoritative current implementation statu
 
 - Stage: 2 — architecture design (brainstorming). Design so far: [Operations automation architecture](Knowledge/Projects/Operations%20automation%20architecture.md).
 - Completed: goal and constraints captured (condo-balcony café in Singapore, PayNow/cash, code-first Next.js + Supabase + Telegram + Claude API). Decisions in `Knowledge/Projects/Scope decisions.md`.
-- In progress: section 1 approved 2026-09-30 (change: bot never messages customers; partner contacts them). Section 2 (data model; beans/finance/insights logic) being presented.
+- In progress: section 1 approved 2026-09-30 (change: bot never messages customers; partner contacts them). Section 2 approved 2026-09-30 (gone quiet = 14 days). Similar-systems review done; 7 proposed amendments awaiting owner approval: `Knowledge/Resources/Similar systems review.md`.
 - Failed or blocked: none. No code written.
 - Not yet done: design sections 2 (data model; beans/finance/insights logic) and 3 (carousel agent); written spec; implementation plan.
 
 ## Next action
 
-1. Get owner approval of section 2, then present section 3 (carousel agent).
+1. Get owner decision on the review amendments (incl. backups: Supabase Pro vs nightly export), then present section 3 (carousel agent).
 2. Write the spec, self-review, and ask the owner to review it before planning.
 
 ## Recent evidence

@@ -40,7 +40,7 @@ Success means:
 ## 4. Architecture
 
 ```
-Customers ──► Order page ─┐                       ┌─► Telegram bot ──► Partner (orders ⚠️, beans, digest)
+Customers ──► Tally form ─┐ (webhook)             ┌─► Telegram bot ──► Partner (orders ⚠️, beans, digest)
                           │                       │                └─► Owner (system alerts)
 Partner ────► Counter PWA ├─► Supabase ("ERP") ───┤
 Owner/Partner ► Admin ────┘   Postgres · Storage  ├─► Weekly marketing brief ─► Google Drive
@@ -52,13 +52,16 @@ Owner/Partner ► Admin ────┘   Postgres · Storage  ├─► Weekly 
 ```
 
 ### Hosting decision (correction, 2026-09-30)
-Vercel's free Hobby plan forbids commercial use, so it is not used. The web app is a **static single-page app** (React + Vite, installable PWA) on **Cloudflare Pages (free tier)**. All server-side logic runs in **Supabase Edge Functions**, which removes the need for a Next.js server. The owner confirms this at spec review.
+Vercel's free Hobby plan forbids commercial use, including a staff-only business dashboard, so it is not used. The staff web app (counter and admin) is a **static single-page app** (React + Vite) on **Cloudflare Pages (free tier)**. All server-side logic runs in **Supabase Edge Functions** in the **Singapore region**. Customers never use our web app: they order through a **Tally form** (owner decision, 2026-09-30).
+
+Speed: the app loads once and then runs on the tablet. Only "save sale" crosses the network, to Supabase in Singapore, and the UI never waits for it.
 
 ### Technical architecture (added 2026-09-30)
 
 | Layer | Choice |
 |---|---|
-| Web app | React + Vite + TypeScript. `vite-plugin-pwa` (Workbox). IndexedDB (via Dexie) holds the counter's offline sales queue. Routes: `/order` (public), `/counter` and `/admin` (staff). |
+| Staff web app | React + Vite + TypeScript, installable PWA. Routes: `/counter` and `/admin` (staff only). No offline mode: home Wi-Fi is always available (owner, 2026-09-30); saves are optimistic with automatic retry. |
+| Customer ordering | Tally form (free plan). Its content is generated from the ERP through the Tally API (`PATCH /forms/{id}`). |
 | Web hosting | Cloudflare Pages, free tier. Serves static files only. |
 | Backend | Supabase: Postgres, Auth, REST API with row-level security, Edge Functions (Deno/TypeScript), Storage, `pg_cron` + `pg_net`. |
 | Messaging | Telegram Bot API via webhook, using `grammy`. |
@@ -68,18 +71,24 @@ Vercel's free Hobby plan forbids commercial use, so it is not used. The web app 
 | CI | GitHub Actions: typecheck, unit and integration tests (local Supabase via CLI) on every push. |
 
 **Server entry points:**
-- `place-order`: public.
-  - Checks the cart against `menu_items`; **the price is computed on the server**.
-  - Checks slot capacity and rate-limits by IP and mobile.
-  - Upserts the customer and inserts the order.
-  - Returns the order code, the PayNow QR payload, a signed Storage upload URL, and an order access token.
-- `submit-proof`: public, requires the order access token.
-  - Responds "confirmed" at once.
-  - Then runs the proof check in the background (`EdgeRuntime.waitUntil`): Anthropic vision extraction, the rule checks, the status update, and the Telegram notice.
+- `tally-webhook`: receives each Tally submission.
+  - Verifies Tally's webhook signature.
+  - Maps answers to menu items by stable block IDs and **recomputes the price from the ERP**. A mismatch with the Tally total, or an unknown item, flags the order and alerts the owner.
+  - Checks the pickup time against the opening schedule.
+  - Upserts the customer, inserts the order and assigns an order code.
+  - Copies the screenshot from Tally into the private proofs bucket.
+  - Responds quickly, then runs the proof check in the background (`EdgeRuntime.waitUntil`): Anthropic vision extraction, the rule checks, the status update, and the Telegram notice.
+- `tally-sync`: rebuilds the Tally form from the ERP and pushes it with `PATCH /forms/{id}`.
+  - Pickup-day dropdown: the next 7 open days.
+  - One conditional time dropdown per day: 15-minute times within that day's hours.
+  - Menu: quantity fields for active pre-order items, a calculated total, and the static PayNow QR image.
+  - Form status: closed outside opening hours, with a "next opening" message.
+  - Triggered when admin saves the menu or hours, by Telegram hour and menu commands, and by a 15-minute job that removes past times. It skips the push when nothing has changed.
 - `telegram-webhook`:
   - Verifies the `X-Telegram-Bot-Api-Secret-Token` header.
   - Accepts only allowlisted chat IDs (the partner and the owner).
   - Handles the buttons: Accept anyway, Reject, Ordered as suggested, Arrived, Ready.
+  - Handles the hours and menu controls: the morning check-in (Yes / Change hours / Closed today), Pause pre-orders, Close early, Reopen, Upcoming days, and Menu today (sold-out toggles). Each one triggers `tally-sync`.
 - `run-job`: a single function that takes a `job` parameter (`bean_forecast`, `weekly_insights`, `digest`, `marketing_brief`, `recurring_expenses`, later `ig_metrics`).
   - Called by `pg_cron` through `pg_net`, carrying a shared job secret stored in Supabase Vault.
   - Every run writes to `job_runs`, and failures alert the owner.
@@ -88,7 +97,7 @@ Vercel's free Hobby plan forbids commercial use, so it is not used. The web app 
   - It is idempotent on the client UUID.
 
 **Auth model:**
-- **Customers:** anonymous. They can reach only `place-order` and `submit-proof`, and have no direct table access.
+- **Customers:** they interact only with Tally. Our only public endpoint is `tally-webhook`, which accepts only requests carrying a valid Tally signature.
 - **Staff:** Supabase Auth accounts with roles in a `staff_roles` table: owner = `admin`, partner = `staff`.
   - The counter tablet stays signed in as staff, behind a local PIN lock screen.
   - RLS grants staff read and write on operational tables; admin-only on settings and expenses.
@@ -96,7 +105,7 @@ Vercel's free Hobby plan forbids commercial use, so it is not used. The web app 
 - **Partner's Claude:** no Supabase access. It reads only the Drive `Marketing/` folder.
 
 **Secrets:**
-- Supabase secrets: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_WEBHOOK_SECRET`, `ANTHROPIC_API_KEY`, `GOOGLE_SERVICE_ACCOUNT_JSON`, `JOB_SECRET`.
+- Supabase secrets: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_WEBHOOK_SECRET`, `ANTHROPIC_API_KEY`, `GOOGLE_SERVICE_ACCOUNT_JSON`, `JOB_SECRET`, `TALLY_API_KEY`, `TALLY_SIGNING_SECRET`.
 - GitHub secrets: `SUPABASE_DB_URL`, `AGE_PUBLIC_KEY`, `R2_*`.
 - Nothing secret is stored in the repo.
 
@@ -108,29 +117,40 @@ Vercel's free Hobby plan forbids commercial use, so it is not used. The web app 
 **Repo layout (planned):**
 - `apps/web/`
 - `supabase/migrations/`
-- `supabase/functions/{place-order,submit-proof,telegram-webhook,run-job,_shared}/`
+- `supabase/functions/{tally-webhook,tally-sync,telegram-webhook,run-job,_shared}/`
 - `marketing/`: the Cowork task instructions and the brand guide.
 - `.github/workflows/{ci,backup}.yml`
 
 ## 5. Components
 
-### 5.1 Customer order page (public)
-Flow:
-1. menu;
-2. cart (with modifiers);
-3. pickup slot (only slots with remaining capacity);
-4. name and mobile, with a one-line PDPA purpose note;
-5. exact-amount PayNow QR with the order code (e.g. `BK-0412`) to type as the reference;
-6. upload a screenshot of the payment;
-7. "Order confirmed".
+### 5.1 Customer ordering: Tally form (owner decision, 2026-09-30)
+Linked from the Instagram bio and the condo chat.
 
-The customer never interacts with Telegram. The page writes only through an Edge Function; it has no direct table access.
+Flow:
+1. menu quantities, with a calculated total;
+2. pickup day (next 7 open days), then a pickup time within that day's hours;
+3. name and mobile, with a one-line PDPA purpose note;
+4. "Your total is S$X": the static PayNow QR image; the customer enters the amount and **their mobile number as the reference**;
+5. upload a screenshot of the payment;
+6. Tally shows "Order confirmed".
+
+**No pickup capacity limits:** any time within opening hours is allowed (owner, 2026-09-30).
+
+**Pre-order menu:** Tally has no per-item add-ons, so variants such as Oat latte or Iced latte are separate items. Admin flags which items appear on pre-order.
+
+**She never edits Tally.** The ERP is the source of truth, and `tally-sync` rewrites the form, so opening hours and menu are changed only in admin or through Telegram.
+
+**Fallback:** if the Tally API cannot handle the calculated total and conditional blocks (spike at build time), she edits Tally by hand; the webhook's price recomputation and hours check catch any drift.
+
+**Privacy:** screenshots also sit on Tally's servers. The form's purpose note covers this.
+
+The customer never interacts with Telegram or with our web app.
 
 ### 5.2 Counter tablet PWA (PIN-protected)
 - Large buttons for the top 6 drinks, one-tap modifiers, a running total.
 - **PayNow** shows the exact-amount QR; **Cash** saves immediately. There is no payment double confirmation.
 - A today's-pre-orders panel, sorted by pickup slot, with Ready / Collected / No-show buttons.
-- **Offline-first:** sales are stored locally with client-generated UUIDs and synced idempotently when the connection returns.
+- **Optimistic saves:** each sale gets a client-generated UUID and shows "✓ saved" at once. It retries in the background until confirmed and is idempotent on the UUID. No offline mode, because home Wi-Fi is always on.
 - **Manual fallback:** a printed static PayNow QR plus a paper tally, entered later through a back-dated entry screen.
 
 ### 5.3 Admin (owner and partner)
@@ -139,7 +159,7 @@ The customer never interacts with Telegram. The page writes only through an Edge
 - Bean catalogue: roaster, bag size, delivery lead time, rest days.
 - Expenses, including recurring ones.
 - Promotions (the only source of promos for marketing).
-- Settings: hours, slot length and capacity, PayNow name and number.
+- Settings: the default weekly opening hours, day-by-day overrides for the next 7 days, pickup interval (15 minutes), PayNow name and number, and the static PayNow QR image used on the form.
 - Reports: weekly and monthly P&L, item margins, insights.
 - Optional stock count entry.
 
@@ -149,15 +169,22 @@ The customer never interacts with Telegram. The page writes only through an Edge
   - **flagged proof:** a ⚠️ with the reason, the screenshot, and a tap-to-WhatsApp link to the customer. She taps **Accept anyway** or **Reject**, and messages the customer herself.
 - **Bean alerts:** the reorder list, plus **Ordered as suggested** and **Arrived** buttons (optional roast date on Arrived).
 - **Sunday digest:** exact numbers plus 3–4 lines of AI commentary with one suggestion. Includes the PayNow total for the week, to compare with her bank app.
-- **Owner-only:** job failure alerts.
+- **Opening hours and menu:**
+  - A morning check-in: "Opening today 8:00–14:00?" with ✅ Yes / ✏️ Change hours / ❌ Closed today.
+  - During the day: Pause pre-orders, Close early, Reopen.
+  - Upcoming days: close or change any of the next 7 days.
+  - Menu today: tap-to-toggle sold-out items.
+  - Each change updates the Tally form within seconds and confirms it ("Form updated ✅ Pickup times now 9:00–11:45").
+  - If a change affects existing orders, the bot lists them with tap-to-WhatsApp links.
+- **Owner-only:** job failure alerts, and alerts for price mismatches between Tally and the ERP.
 
 ### 5.5 Payment proof check
 1. A small vision model extracts: amount, recipient name, masked number, date/time, reference, transaction ID, bank, and a confidence value.
 2. Code compares the extracted fields with the order. All of these must pass:
    - amount = order total;
    - recipient matches the configured PayNow name;
-   - time within 30 minutes of order creation;
-   - reference contains the order code;
+   - payment time within 30 minutes before the form submission;
+   - reference contains the customer's mobile number (at least the last 4 digits);
    - transaction ID not seen before;
    - confidence above the threshold.
 3. **Full pass → `verified` automatically. Any failure → `flagged` to the partner.**
@@ -175,6 +202,8 @@ All times are Asia/Singapore.
 | Digest | Sunday 17:30 | Telegram message |
 | Marketing brief | Sunday 18:00 | Markdown/JSON brief to a Google Drive folder |
 | Nightly export | 02:00 (GitHub Action) | `age`-encrypted database dump to Cloudflare R2; also keeps the Free project active |
+| Tally time roll | Every 15 minutes during opening hours | `tally-sync`: remove past times, open or close the form |
+| Morning check-in | 30 minutes before default opening | Telegram hours prompt |
 | IG metrics pull | Daily (after the IG Business account exists) | Metrics rows |
 
 Every run writes a `job_runs` row. Failures alert the owner.
@@ -207,12 +236,12 @@ Every run writes a `job_runs` row. Failures alert the owner.
 
 | Table | Key columns / notes |
 |---|---|
-| `menu_items` | name, category, price_cents, active, sort_rank |
+| `menu_items` | name, category, price_cents, active, on_preorder, sold_out_today, sort_rank, tally_block_id (stable) |
 | `modifiers` | name, price_delta_cents |
 | `ingredients` | name, kind (bean/milk/packaging/other), unit (g/ml/pc), avg_cost_micros. Beans also have: roaster, bag_size_g, lead_time_days, rest_days, waste_allowance_pct |
 | `recipe_lines` / `modifier_lines` | menu_item_id or modifier_id, ingredient_id, qty |
 | `customers` | name, mobile (unique), created_at. Pre-orders only |
-| `orders` | id (client UUID), code, channel (walk_in/pre_order), status, payment_method (paynow/cash), total_cents, customer_id, pickup_slot, proof_path, proof_check jsonb, source (e.g. `ig`), created_at |
+| `orders` | id (client UUID), code, channel (walk_in/pre_order), status, payment_method (paynow/cash), total_cents, tally_total_cents, customer_id, pickup_at, tally_response_id (unique), proof_path, proof_check jsonb, source (e.g. `ig`), created_at |
 | `order_items` | order_id, menu_item_id, qty, modifiers, **unit_price_cents and unit_cost_cents snapshot at sale** |
 | `stock_movements` | append-only: ingredient_id, qty (±), reason (purchase/sale/waste/count_adjust), ref, at |
 | `purchases` | ingredient_id, qty, bags, cost_cents, status (ordered/arrived), roast_date, ordered_at, arrived_at |
@@ -221,6 +250,8 @@ Every run writes a `job_runs` row. Failures alert the owner.
 | `promos` | text, starts, ends |
 | `weekly_insights` | week_start, payload jsonb (shared by the digest and the marketing brief) |
 | `ig_posts` | ig_media_id, posted_at, views, reach, saves, shares (later) |
+| `opening_hours` | weekday, opens, closes (the default week) |
+| `opening_overrides` | date, closed, opens, closes, paused (day-level exceptions) |
 | `settings`, `job_runs` | config; job audit |
 
 Order statuses:
@@ -247,7 +278,7 @@ Revenue counts `completed`, `verified`, `ready` and `collected`.
 ### 7.3 Insights (views → `weekly_insights`)
 - Sales by hour and weekday; item mix; average ticket; pre-order share.
 - Item margin with a popular-vs-profitable matrix.
-- Slot load; no-shows; flagged proofs.
+- Pickup-time load; no-shows; flagged proofs.
 - Repeat rate; **regular = 3+ pre-orders; gone quiet = none in 14 days**.
 - Bean variance (when counts exist): <3% ok, 3–5% watch, >5% investigate.
 - Later: IG views, reach, saves and shares; weather.
@@ -255,12 +286,12 @@ Revenue counts `completed`, `verified`, `ready` and `collected`.
 ## 8. Reliability
 - Idempotent writes: client UUIDs, and Telegram update IDs deduplicated.
 - The job audit table records every run, and the owner is alerted on failure.
-- Offline counter plus the paper fallback.
+- Optimistic counter saves with retry, plus the paper fallback. Tally submissions are idempotent on `tally_response_id`.
 - Nightly encrypted export with a **monthly restore test** logged in `job_runs`.
 - Daily jobs prevent the Supabase Free inactivity pause.
 
 ## 9. Security and privacy
-- Row-level security on all tables. The public page can only call the order Edge Function.
+- Row-level security on all tables. The only public endpoint is `tally-webhook`, which checks Tally's signature.
 - Proofs are stored in a private bucket, reachable only through signed URLs from the bot and admin.
 - Secrets live in Supabase / Cloudflare / GitHub secret stores only; `.env` stays git-ignored.
 - Customer data is minimal (name and mobile), stated as used only for order contact. Export and deletion on request.
@@ -273,13 +304,14 @@ Revenue counts `completed`, `verified`, `ready` and `collected`.
   - proof comparison rules;
   - PayNow QR payload.
 - **Integration:**
-  - order Edge Function (RLS denies direct writes);
+  - `tally-webhook` with recorded Tally payloads (bad signature, price mismatch, out-of-hours, duplicate response);
+  - `tally-sync` form generation from fixture menus and hours (snapshot of the PATCH body);
   - Telegram webhook with recorded updates;
-  - offline sync idempotency.
+  - counter save retry idempotency.
 - **Fixtures:** hand-calculated test weeks for the P&L and forecast; recorded vision outputs for proof checks.
 - **Manual before launch:**
   - scan the PayNow QR with the DBS, OCBC and UOB apps;
-  - run 20 test orders end to end on a test bot.
+  - run 20 test orders end to end through a test Tally form and a test bot, including changing hours and toggling sold-out items.
 - **Coverage target:** 80%. The TDD workflow applies.
 
 ## 11. Dependencies and running cost
@@ -288,6 +320,7 @@ Revenue counts `completed`, `verified`, `ready` and `collected`.
 | Supabase Free | S$0 |
 | Cloudflare R2 (backups, free tier) | S$0 |
 | Cloudflare Pages Free | S$0 |
+| Tally Free | S$0 |
 | Telegram bot | S$0 |
 | GitHub Actions (backup) | S$0 |
 | Google Drive | S$0 |
@@ -303,13 +336,13 @@ Libraries (planned):
 
 ## 12. Build order
 1. **Foundation:** schema, RLS, admin (menu, recipes, beans), Telegram bot skeleton.
-2. **Counter PWA** plus the offline and fallback flows. *Walk-in data capture starts here.*
-3. **Pre-orders:** order page, proof check, bot flows.
+2. **Counter PWA** plus the fallback flow. *Walk-in data capture starts here.*
+3. **Pre-orders:** Tally API spike, then `tally-sync`, `tally-webhook`, proof check, and the hours and menu bot flows.
 4. **Beans, finance, insights, digest.**
 5. **Canva/Cowork spike**, then brief export, task instructions, and a Cowork task set up with the partner.
 6. **Pilot week** with residents.
 
-Until step 3 ships, pre-orders may run on Take App's free plan (50 orders/month).
+Until step 3 ships, pre-orders can run on a hand-edited Tally form.
 
 ## 13. Out of scope (v1)
 - Payment providers and cards.
@@ -322,5 +355,5 @@ Until step 3 ships, pre-orders may run on Take App's free plan (50 orders/month)
 
 ## 14. Open items at review
 1. Confirm review amendments #1 (rest days), #2 (waste allowance and variance bands), #3 (IG metrics), #4 (PayNow QR library and bank tests) and #7 (rush-speed counter and manual fallback). All are included above.
-2. Confirm the hosting change: static PWA on Cloudflare Pages + Supabase Edge Functions instead of Next.js on Vercel. Also confirm Cloudflare R2 as the backup destination.
+2. Confirm the hosting: staff app on Cloudflare Pages, not Vercel Hobby (no commercial use) or Vercel Pro (~USD 20/month). Supabase in Singapore. Also confirm Cloudflare R2 as the backup destination.
 3. Pending from the partner: brand kit, Instagram Business account, a paid Claude plan.

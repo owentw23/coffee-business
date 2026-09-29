@@ -20,3 +20,4 @@ Append a concise dated line after substantive vault work. Link the relevant sess
 - 2026-09-30: Section 3 redesigned as a content agent (weekly calendar, Canva autofill templates, photo briefs, inspiration library); see [[Projects/Operations automation architecture]].
 - 2026-09-30: Section 3 v3 approved (Cowork + Canva connector); design spec written to `docs/superpowers/specs/2026-09-30-operations-automation-design.md`; see [[Projects/Sessions/2026-09-30-automation-architecture]].
 - 2026-09-30: Added a technical architecture section to the spec (stack, server entry points, auth model, secrets, environments, repo layout; backups to Cloudflare R2 with age encryption) and produced architecture, customer, partner and technical diagrams in chat.
+- 2026-09-30: Customer ordering moved to a Tally form synced from the ERP through the Tally API; spec sections 4, 5, 6, 8–14 updated; see [[Projects/Operations automation architecture]].

@@ -5,8 +5,8 @@ Updated: 2026-09-30. This file is the authoritative current implementation statu
 ## Current state
 
 - Stage: 2 — architecture design. Sections 1–3 approved 2026-09-30; spec written: `docs/superpowers/specs/2026-09-30-operations-automation-design.md`.
-- Latest decisions: content agent is a Cowork scheduled task on the partner's Claude account with the Canva connector, fed by a weekly marketing brief in Google Drive; payment proofs auto-verified on full pass; backups via nightly export on Supabase Free.
-- Awaiting owner review of the spec, including: review amendments #1–4, #7; proposed hosting change (static PWA on Cloudflare Pages + Supabase Edge Functions, because Vercel Hobby forbids commercial use).
+- Latest decisions: customers order via a Tally form synced from the ERP (7-day window, no slot limits, hours and menu controlled from Telegram and admin); no offline mode on the counter; content agent is a Cowork scheduled task on the partner's Claude account with the Canva connector, fed by a weekly marketing brief in Google Drive; payment proofs auto-verified on full pass; backups via nightly export on Supabase Free.
+- Awaiting owner review of the spec, including: review amendments #1–4, #7; staff app hosting (Cloudflare Pages recommended; owner preferred Vercel, but Hobby forbids commercial use).
 - Failed or blocked: none. No code written.
 - Pending from partner: brand kit, IG Business account, paid Claude plan.
 

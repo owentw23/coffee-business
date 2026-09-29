@@ -54,6 +54,64 @@ Owner/Partner ► Admin ────┘   Postgres · Storage  ├─► Weekly 
 ### Hosting decision (correction, 2026-09-30)
 Vercel's free Hobby plan forbids commercial use, so it is not used. The web app is a **static single-page app** (React + Vite, installable PWA) on **Cloudflare Pages (free tier)**. All server-side logic runs in **Supabase Edge Functions**, which removes the need for a Next.js server. The owner confirms this at spec review.
 
+### Technical architecture (added 2026-09-30)
+
+| Layer | Choice |
+|---|---|
+| Web app | React + Vite + TypeScript. `vite-plugin-pwa` (Workbox). IndexedDB (via Dexie) holds the counter's offline sales queue. Routes: `/order` (public), `/counter` and `/admin` (staff). |
+| Web hosting | Cloudflare Pages, free tier. Serves static files only. |
+| Backend | Supabase: Postgres, Auth, REST API with row-level security, Edge Functions (Deno/TypeScript), Storage, `pg_cron` + `pg_net`. |
+| Messaging | Telegram Bot API via webhook, using `grammy`. |
+| AI | Anthropic API, called only from Edge Functions: payment-proof field extraction and digest commentary. |
+| Marketing hand-off | Google Drive API, via a service account with access to a single `Marketing/` folder. |
+| Backups | GitHub Actions: `pg_dump`, encrypted with `age` (public key), uploaded to Cloudflare R2 (free tier). The private key is kept offline by the owner. A weekly job also copies the proofs bucket through Storage's S3-compatible endpoint. |
+| CI | GitHub Actions: typecheck, unit and integration tests (local Supabase via CLI) on every push. |
+
+**Server entry points:**
+- `place-order`: public.
+  - Checks the cart against `menu_items`; **the price is computed on the server**.
+  - Checks slot capacity and rate-limits by IP and mobile.
+  - Upserts the customer and inserts the order.
+  - Returns the order code, the PayNow QR payload, a signed Storage upload URL, and an order access token.
+- `submit-proof`: public, requires the order access token.
+  - Responds "confirmed" at once.
+  - Then runs the proof check in the background (`EdgeRuntime.waitUntil`): Anthropic vision extraction, the rule checks, the status update, and the Telegram notice.
+- `telegram-webhook`:
+  - Verifies the `X-Telegram-Bot-Api-Secret-Token` header.
+  - Accepts only allowlisted chat IDs (the partner and the owner).
+  - Handles the buttons: Accept anyway, Reject, Ordered as suggested, Arrived, Ready.
+- `run-job`: a single function that takes a `job` parameter (`bean_forecast`, `weekly_insights`, `digest`, `marketing_brief`, `recurring_expenses`, later `ig_metrics`).
+  - Called by `pg_cron` through `pg_net`, carrying a shared job secret stored in Supabase Vault.
+  - Every run writes to `job_runs`, and failures alert the owner.
+- `record_sale(payload)`: a Postgres function (RPC) called by the counter for each sale.
+  - It **snapshots unit price and cost on the server** and inserts the matching `stock_movements`.
+  - It is idempotent on the client UUID.
+
+**Auth model:**
+- **Customers:** anonymous. They can reach only `place-order` and `submit-proof`, and have no direct table access.
+- **Staff:** Supabase Auth accounts with roles in a `staff_roles` table: owner = `admin`, partner = `staff`.
+  - The counter tablet stays signed in as staff, behind a local PIN lock screen.
+  - RLS grants staff read and write on operational tables; admin-only on settings and expenses.
+- **Telegram:** a chat-ID allowlist stored in `settings`.
+- **Partner's Claude:** no Supabase access. It reads only the Drive `Marketing/` folder.
+
+**Secrets:**
+- Supabase secrets: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_WEBHOOK_SECRET`, `ANTHROPIC_API_KEY`, `GOOGLE_SERVICE_ACCOUNT_JSON`, `JOB_SECRET`.
+- GitHub secrets: `SUPABASE_DB_URL`, `AGE_PUBLIC_KEY`, `R2_*`.
+- Nothing secret is stored in the repo.
+
+**Environments:**
+- Local: Supabase CLI plus the Vite dev server, with a separate test Telegram bot.
+- Production: one Supabase project and one Pages project.
+- Schema changes go only through `supabase/migrations/`.
+
+**Repo layout (planned):**
+- `apps/web/`
+- `supabase/migrations/`
+- `supabase/functions/{place-order,submit-proof,telegram-webhook,run-job,_shared}/`
+- `marketing/`: the Cowork task instructions and the brand guide.
+- `.github/workflows/{ci,backup}.yml`
+
 ## 5. Components
 
 ### 5.1 Customer order page (public)
@@ -116,7 +174,7 @@ All times are Asia/Singapore.
 | Weekly insights | Sunday 17:00 | A `weekly_insights` row |
 | Digest | Sunday 17:30 | Telegram message |
 | Marketing brief | Sunday 18:00 | Markdown/JSON brief to a Google Drive folder |
-| Nightly export | 02:00 (GitHub Action) | Encrypted database dump to private storage; also keeps the Free project active |
+| Nightly export | 02:00 (GitHub Action) | `age`-encrypted database dump to Cloudflare R2; also keeps the Free project active |
 | IG metrics pull | Daily (after the IG Business account exists) | Metrics rows |
 
 Every run writes a `job_runs` row. Failures alert the owner.
@@ -228,6 +286,7 @@ Revenue counts `completed`, `verified`, `ready` and `collected`.
 | Item | Cost |
 |---|---|
 | Supabase Free | S$0 |
+| Cloudflare R2 (backups, free tier) | S$0 |
 | Cloudflare Pages Free | S$0 |
 | Telegram bot | S$0 |
 | GitHub Actions (backup) | S$0 |
@@ -263,5 +322,5 @@ Until step 3 ships, pre-orders may run on Take App's free plan (50 orders/month)
 
 ## 14. Open items at review
 1. Confirm review amendments #1 (rest days), #2 (waste allowance and variance bands), #3 (IG metrics), #4 (PayNow QR library and bank tests) and #7 (rush-speed counter and manual fallback). All are included above.
-2. Confirm the hosting change: static PWA on Cloudflare Pages + Supabase Edge Functions instead of Next.js on Vercel.
+2. Confirm the hosting change: static PWA on Cloudflare Pages + Supabase Edge Functions instead of Next.js on Vercel. Also confirm Cloudflare R2 as the backup destination.
 3. Pending from the partner: brand kit, Instagram Business account, a paid Claude plan.

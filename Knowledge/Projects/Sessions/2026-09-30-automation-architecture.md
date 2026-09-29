@@ -21,7 +21,10 @@ Recorded in [[Projects/Scope decisions]]; design detail in [[Projects/Operations
 None. Design only; no code written.
 
 ## Unresolved
-See [[Projects/Open questions]]. Section 1 was presented with the insights layer; owner asked to keep the carousel-insights link but has not yet given explicit approval of section 1 as a whole.
+See [[Projects/Open questions]]. IG Business account and brand kit pending from the partner.
+
+## Update 2026-09-30
+Owner answered the open questions (premises settled, personal PayNow, IG Business and brand kit later) and approved section 1 with one change: no bot messages to customers. Auto-capture drafts in `Knowledge/Inbox/Auto/` were reviewed: they contained only handoff snapshots, but show real Stop and SessionEnd hook events fired 2026-09-29 16:17–16:20 UTC. Drafts deleted after curation.
 
 ## Next action
-Confirm section 1, then present section 2 (data model; beans, finance, insights logic) and section 3 (carousel agent).
+Present section 2 (data model; beans, finance, insights logic), then section 3 (carousel agent).

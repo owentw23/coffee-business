@@ -11,8 +11,10 @@ Record each question with its owner, evidence needed, and next review point. Mov
 
 ## Operations automation (from [[Projects/Operations automation architecture]])
 
-- Premises rules for selling from the condo balcony (URA home-business rules, MCST by-laws). Owner: project owner. Evidence: written confirmation from MCST/URA. SFA licence reported as already held.
-- Personal vs business (UEN) PayNow for receiving sales. Owner: project owner. Evidence: chosen PayNow proxy.
-- Will pre-order customers accept connecting Telegram for order updates? Owner: project owner. Evidence: pilot adoption with first residents.
-- Instagram account converted to Business/Creator and linked to a Facebook Page for insights. Owner: partner. Evidence: account settings.
-- Brand kit (fonts, colours, logo, tone) from the partner's brand work, needed for carousel templates. Owner: partner.
+- Instagram account converted to Business/Creator and linked to a Facebook Page for insights. Owner: partner. Status: deferred; owner will set up later (2026-09-30).
+- Brand kit (fonts, colours, logo, tone) for carousel templates. Owner: partner. Status: owner will send later (2026-09-30).
+
+### Resolved 2026-09-30 (owner)
+- Premises rules (URA/MCST): settled externally. SFA licence held (owner-reported).
+- PayNow proxy: personal PayNow.
+- Customer Telegram adoption: no longer needed; the partner messages rejected customers herself.

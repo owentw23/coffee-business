@@ -6,13 +6,13 @@ Updated: 2026-09-30. This file is the authoritative current implementation statu
 
 - Stage: 2 — architecture design (brainstorming). Design so far: [Operations automation architecture](Knowledge/Projects/Operations%20automation%20architecture.md).
 - Completed: goal and constraints captured (condo-balcony café in Singapore, PayNow/cash, code-first Next.js + Supabase + Telegram + Claude API). Decisions in `Knowledge/Projects/Scope decisions.md`.
-- In progress: section 1 (overall architecture + insights layer) presented; owner asked that computed insights feed the carousel agent; explicit approval of section 1 still pending.
+- In progress: section 1 approved 2026-09-30 (change: bot never messages customers; partner contacts them). Section 2 (data model; beans/finance/insights logic) being presented.
 - Failed or blocked: none. No code written.
 - Not yet done: design sections 2 (data model; beans/finance/insights logic) and 3 (carousel agent); written spec; implementation plan.
 
 ## Next action
 
-1. Get owner approval of section 1, then present sections 2 and 3.
+1. Get owner approval of section 2, then present section 3 (carousel agent).
 2. Write the spec, self-review, and ask the owner to review it before planning.
 
 ## Recent evidence
@@ -23,6 +23,6 @@ Updated: 2026-09-30. This file is the authoritative current implementation statu
 | 2026-09-28 | Private GitHub repo with vault included | Initial commit pushed to `owentw23/coffee-business`; `vault-lint` passed; see `Knowledge/Projects/Sessions/2026-09-28-github-repo.md` | No collaborators invited yet |
 | 2026-09-28 | Shared Codex and Claude workspace documented | User reports Claude Code has access to the same folder; local checkout tracks `origin/main` | Does not verify Claude runtime access or GitHub account permissions |
 | 2026-09-30 | Automation architecture decisions recorded | Owner answers in Claude Code conversation; see `Knowledge/Projects/Sessions/2026-09-30-automation-architecture.md` | Design only; SFA licence is owner-reported |
-| 2026-09-30 | Auto-capture hooks configured | Synthetic hook events piped through `scripts/vault-hook.cjs`, exit 0; see `Knowledge/Projects/Sessions/2026-09-30-auto-capture-hooks.md` | Real hook firing not yet observed; may need a new session |
+| 2026-09-30 | Auto-capture hooks configured | Synthetic hook events piped through `scripts/vault-hook.cjs`, exit 0; see `Knowledge/Projects/Sessions/2026-09-30-auto-capture-hooks.md` | Real Stop and SessionEnd events observed 2026-09-29 16:17–16:20 UTC (drafts curated and deleted 2026-09-30) |
 
 Historical rationale and session records live under [Knowledge/](Knowledge/START-HERE.md). Update this handoff after every meaningful milestone; keep it concise.

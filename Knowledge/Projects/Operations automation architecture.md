@@ -16,22 +16,23 @@ The partner (barista) should only need to: make coffee, attend to pre-orders, or
 ## Business context (owner-confirmed)
 
 - Physical café on the first-floor balcony of a condo complex in Singapore, plus pre-orders. Customers are mainly residents.
-- Payments: PayNow and cash only. No cards, no payment provider.
+- Payments: PayNow (personal proxy) and cash only. No cards, no payment provider.
+- Premises rules (URA/MCST) settled externally.
 - SFA licence already obtained (owner statement, 2026-09-29; not independently verified).
 
 ## Principle: "SQL computes, AI explains"
 
 Only the carousel needs creative judgment. Bean quantities, costs, revenue, and every metric are computed deterministically in Postgres. AI never produces a number used for decisions; it narrates computed numbers and uses them as inputs.
 
-## Section 1 — overall architecture (presented 2026-09-29)
+## Section 1 — overall architecture (approved 2026-09-30 with change)
 
 Code-first stack: Next.js (Vercel) + Supabase (Postgres, Storage, Cron, Edge Functions) + one Telegram bot + Claude API. n8n was considered and rejected for v1 (see Scope decisions).
 
 Components:
-1. **Customer order page** (web, also usable as a Telegram Mini App): menu → cart → pickup slot → exact-amount PayNow QR → upload payment screenshot → "Order confirmed" → one-tap "Get updates on Telegram" deep link (required because a bot can only message users who have started it).
+1. **Customer order page** (web, also usable as a Telegram Mini App): menu → cart → pickup slot → exact-amount PayNow QR → upload payment screenshot → "Order confirmed". Collects name and mobile number so the partner can contact the customer. (Earlier proposal of a Telegram deep link for customers dropped 2026-09-30; customers never interact with the bot.)
 2. **Counter tablet** (same app, PIN-protected): walk-in transaction entry into the ERP. Tap items → exact-amount PayNow QR or Cash → save. No payment double-confirmation. Also lists today's pre-orders by slot with a Ready button.
 3. **Admin**: menu/prices, recipes (grams of beans/milk per drink), bean catalogue, expenses, cost/revenue report.
-4. **Telegram bot**: partner gets each pre-order with its screenshot and ✅ Verify / ❌ Reject buttons. Reject → bot messages the customer "rejected — proof not verified". Verify → no customer message (page already said confirmed). Partner sends weekly photos to the bot for the carousel.
+4. **Telegram bot**: partner gets each pre-order with its screenshot and ✅ Verify / ❌ Reject buttons. Reject → order marked rejected and the bot shows the customer's number with a tap-to-WhatsApp link; the partner messages them herself. Verify → nothing sent (page already said confirmed). The bot only talks to the partner (and the owner for system alerts). Partner sends weekly photos to the bot for the carousel.
 5. **Jobs**: daily bean forecast (SQL, alert only when needed); weekly cost/revenue digest; weekly carousel agent (the only AI agent).
 
 ## Insights layer (proposed 2026-09-29, owner-endorsed carousel link)

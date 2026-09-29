@@ -71,3 +71,11 @@ All imagery is her real photos. AI only designs layout and base: info posts with
 ## Section 2 — data model and logic (approved 2026-09-30)
 
 Tables: `menu_items`, `modifiers`, `ingredients`, `recipe_lines`, `modifier_lines`, `orders`, `order_items` (price and cost snapshot at sale), `customers` (pre-order name + mobile), `stock_movements` (append-only ledger), `purchases`, `expenses` (incl. recurring), `weekly_insights` (shared by the digest and the carousel agent), `settings`, `job_runs`. Bean forecast, finance and insights are SQL. Regular = 3+ pre-orders; gone quiet = 14 days. Scrutiny and proposed amendments: [[Resources/Similar systems review]].
+
+## Payment proof check (agreed 2026-09-30)
+
+Vision model (small, e.g. Haiku-class) reads the screenshot into fixed fields; deterministic code checks: amount equals order total; recipient matches her PayNow name; timestamp within ~30 min of order; reference contains order code; transaction ID never seen before; extraction confident. Full pass → auto-verified, FYI to partner. Any failure → ⚠️ to partner with the reason and a tap-to-WhatsApp link. Limit: cannot prove funds arrived; weekly PayNow total vs bank app is the backstop.
+
+## Backups (agreed 2026-09-30)
+
+Supabase Free + nightly encrypted database export (scheduled GitHub Action) to private storage; monthly restore test. IRAS requires 5-year record retention.

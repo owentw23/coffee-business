@@ -16,3 +16,4 @@ Append a concise dated line after substantive vault work. Link the relevant sess
 - 2026-09-30: Enabled automatic draft capture hooks (Stop/PreCompact/SessionEnd) and a curate-on-SessionStart reminder; see [[Projects/Sessions/2026-09-30-auto-capture-hooks]].
 - 2026-09-30: Section 1 approved (bot never messages customers); open questions resolved; 5 auto-capture drafts curated (confirmed real hook firing) and deleted; see [[Projects/Sessions/2026-09-30-automation-architecture]].
 - 2026-09-30: Section 2 approved; reviewed design against similar systems and recorded amendments; see [[Resources/Similar systems review]].
+- 2026-09-30: Owner chose nightly-export backups and vision-based payment-proof checks with auto-verify; see [[Projects/Operations automation architecture]].

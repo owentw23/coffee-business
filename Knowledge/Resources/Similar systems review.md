@@ -20,7 +20,7 @@ Scrutiny of [[Projects/Operations automation architecture]] against comparable p
 7. **Supabase Free**: pauses after 7 days of inactivity and has no automated backups; Pro (USD 25/month) adds backups.
 8. **IRAS**: sole proprietors must keep business records for 5 years.
 
-## Proposed design changes (awaiting owner approval)
+## Proposed design changes (2026-09-30: #5 replaced by automatic proof check; #6 resolved as nightly export; others pending confirmation at spec review)
 
 - Bean lead time = delivery + rest days; order cap from the freshness window; optional roast date on "Arrived".
 - Bean waste allowance in costing; variance bands 3% / 5%.

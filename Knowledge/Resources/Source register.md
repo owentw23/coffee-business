@@ -24,6 +24,11 @@ source: project-setup
 | Cowork scheduled tasks | https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork | 2026-09-30 | Paid plans; cloud runs while computer is off; connectors available; no local folders in cloud runs | Chat continuation after a run not documented |
 | Canva connector for Claude | https://claude.com/connectors/canva | 2026-09-30 | Tools incl. generate-design, export-design, search-designs | Plan requirements not stated; third-party sources say brand kit/templates via connector need Enterprise |
 | Vercel fair use | https://vercel.com/docs/limits/fair-use-guidelines | 2026-09-30 | Hobby plan is non-commercial only; payments count as commercial | — |
+| Tally pricing | https://tally.so/pricing | 2026-09-30 | Free: unlimited submissions, 10 MB uploads, calculations, webhooks | Fetch-tool summary |
+| Fillout pricing / vs Tally / limit bookings | https://www.fillout.com/pricing ; https://www.fillout.com/vs/tally ; https://www.fillout.com/help/limit-bookings | 2026-09-30 | Free 1,000 responses/month; booking limits daily, one-on-one only | Vendor comparison page is marketing |
+| Youform / OpnForm | https://youform.com/pricing/ ; https://opnform.com/pricing | 2026-09-30 | Unlimited free submissions; OpnForm uploads on Pro | Search snippets |
+| Zoho Forms pricing / choice availability | https://www.zoho.com/forms/pricing.html ; https://www.zoho.com/forms/articles/forms/choice-availability.html | 2026-09-30 | Free 3 forms, 500 submissions/month; per-option quantity limits | Webhooks on free unconfirmed |
+| Jotform free plan | https://www.jotform.com/help/jotform-free-vs-paid-what-are-the-differences-between-the-free-and-paid-plans/ | 2026-09-30 | 100 submissions/month; 5 forms | Third-party sources conflict on free webhooks |
 | IRAS record keeping | https://www.iras.gov.sg/taxes/individual-income-tax/self-employed-and-partnerships/keeping-proper-records-and-accounts | 2026-09-30 | Sole proprietors keep records 5 years | Search snippet; business structure unconfirmed |
 
 Preserve local originals in `Raw/`; do not modify them during ingestion. Record incomplete access honestly.

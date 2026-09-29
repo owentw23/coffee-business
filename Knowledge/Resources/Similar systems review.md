@@ -29,3 +29,20 @@ Scrutiny of [[Projects/Operations automation architecture]] against comparable p
 - Backups and no-pause (Supabase Pro or a nightly export) because records must be kept 5 years.
 - Manual fallback mode (printed QR + later entry) so an outage never stops service; the shop's opening must not depend on the software.
 - Counter screen built for rush speed: big buttons for top drinks, one-tap modifiers.
+
+## Customer order form options (researched 2026-09-30)
+
+Owner wants a third-party form instead of a hosted order page. Needs: menu quantities with a calculated total, screenshot upload, webhook to Supabase, free commercial use; per-slot capacity is nice-to-have.
+
+| Tool | Free tier (as found) | Fit |
+|---|---|---|
+| Tally | Unlimited submissions; uploads 10 MB/file; calculations, webhooks, answer piping, conditional logic free | Best overall; no per-slot capacity (that is TallyCal, a separate product) |
+| Fillout | 1,000 responses/month; uploads; calculations; webhooks; scheduling | Strong runner-up; scheduling limits are daily and for one-on-one bookings, not per-slot group capacity |
+| Youform | Unlimited submissions; uploads 10 MB; webhooks | Newer Tally clone; calculations not confirmed |
+| OpnForm | Unlimited submissions; webhooks | File uploads only on Pro (USD 19/month), so it fails the screenshot requirement on free |
+| Zoho Forms | 3 forms, 500 submissions/month | Only option with per-option "choice availability" (real slot capacity); webhook availability on free not confirmed |
+| Jotform | 5 forms, 100 submissions/month, 500 stored lifetime | Has limited-quantity options, but free limits too tight |
+| Take App | 50 orders/month; PayNow + proof upload built in | API/webhooks paid (USD 50/month), so it cannot feed the ERP for free |
+
+No form tool found that renders a PayNow QR with a per-order amount; the form shows a static QR and the computed total.
+

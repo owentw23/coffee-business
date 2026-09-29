@@ -4,16 +4,16 @@ Updated: 2026-09-30. This file is the authoritative current implementation statu
 
 ## Current state
 
-- Stage: 2 — architecture design (brainstorming). Design so far: [Operations automation architecture](Knowledge/Projects/Operations%20automation%20architecture.md).
-- Completed: goal and constraints captured (condo-balcony café in Singapore, PayNow/cash, code-first Next.js + Supabase + Telegram + Claude API). Decisions in `Knowledge/Projects/Scope decisions.md`.
-- In progress: section 1 approved 2026-09-30 (change: bot never messages customers; partner contacts them). Section 2 approved 2026-09-30 (gone quiet = 14 days). Similar-systems review done; Amendments in `Knowledge/Resources/Similar systems review.md`; owner chose nightly-export backups and automatic payment-proof checking with auto-verify on full pass.
+- Stage: 2 — architecture design. Sections 1–3 approved 2026-09-30; spec written: `docs/superpowers/specs/2026-09-30-operations-automation-design.md`.
+- Latest decisions: content agent is a Cowork scheduled task on the partner's Claude account with the Canva connector, fed by a weekly marketing brief in Google Drive; payment proofs auto-verified on full pass; backups via nightly export on Supabase Free.
+- Awaiting owner review of the spec, including: review amendments #1–4, #7; proposed hosting change (static PWA on Cloudflare Pages + Supabase Edge Functions, because Vercel Hobby forbids commercial use).
 - Failed or blocked: none. No code written.
-- Not yet done: design sections 2 (data model; beans/finance/insights logic) and 3 (carousel agent); written spec; implementation plan.
+- Pending from partner: brand kit, IG Business account, paid Claude plan.
 
 ## Next action
 
-1. Get approval of revised section 3 (content agent with Canva templates, 3–4 posts/week); then write the spec (confirm review amendments #1–4, #7 at spec review).
-2. Write the spec, self-review, and ask the owner to review it before planning.
+1. Owner reviews the spec; apply changes and re-run self-review.
+2. Then write the implementation plan (writing-plans skill).
 
 ## Recent evidence
 
@@ -24,5 +24,6 @@ Updated: 2026-09-30. This file is the authoritative current implementation statu
 | 2026-09-28 | Shared Codex and Claude workspace documented | User reports Claude Code has access to the same folder; local checkout tracks `origin/main` | Does not verify Claude runtime access or GitHub account permissions |
 | 2026-09-30 | Automation architecture decisions recorded | Owner answers in Claude Code conversation; see `Knowledge/Projects/Sessions/2026-09-30-automation-architecture.md` | Design only; SFA licence is owner-reported |
 | 2026-09-30 | Auto-capture hooks configured | Synthetic hook events piped through `scripts/vault-hook.cjs`, exit 0; see `Knowledge/Projects/Sessions/2026-09-30-auto-capture-hooks.md` | Real Stop and SessionEnd events observed 2026-09-29 16:17–16:20 UTC (drafts curated and deleted 2026-09-30) |
+| 2026-09-30 | Design spec written | `docs/superpowers/specs/2026-09-30-operations-automation-design.md`; self-reviewed (timezone fix) | Not yet owner-reviewed; Canva/Cowork capabilities unverified until spike |
 
 Historical rationale and session records live under [Knowledge/](Knowledge/START-HERE.md). Update this handoff after every meaningful milestone; keep it concise.

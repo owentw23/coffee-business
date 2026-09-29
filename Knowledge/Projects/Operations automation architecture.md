@@ -80,7 +80,7 @@ Vision model (small, e.g. Haiku-class) reads the screenshot into fixed fields; d
 
 Supabase Free + nightly encrypted database export (scheduled GitHub Action) to private storage; monthly restore test. IRAS requires 5-year record retention.
 
-## Section 3 — content agent (revised 2026-09-30, awaiting approval)
+## Section 3 v2 — content agent via Canva API (2026-09-30; superseded same day by v3)
 
 - **Inputs via Telegram, any time:** inspiration (images, links, screenshots) → inspiration library with AI notes (layout, hook, colour, why it works), style reference only, never copied; text ideas/news → idea backlog; photos → photo library or matched to an open photo brief. Ambiguous image → bot asks 💡 Inspiration / 📸 For a post.
 - **Weekly content calendar (Sunday, with digest):** 3–4 posts/week (owner, 2026-09-30). Each post: day, concept, message, goal from `weekly_insights`, format, Canva template, slide copy, caption, hashtags. Partner approves or edits in chat.
@@ -88,3 +88,7 @@ Supabase Free + nightly encrypted database export (scheduled GitHub Action) to p
 - **Rendering in Canva:** 6–10 Canva brand templates designed once by the partner; registered with field limits. Canva Connect Autofill (requires Canva Pro+; owner confirms Pro/Teams) fills text and image fields; export API returns one PNG per page. Vision check for overflow/crops. Delivery the evening before or morning of post day: full-quality files, caption, and an "Open in Canva" link for manual tweaks. Partner taps Posted; IG metrics later.
 - **Rules:** prices/items from the menu DB; never name customers; only her real photos in posts; inspiration is style-only.
 - **Feasibility spike required before build:** unreviewed Connect integration usable on her account; multi-page template autofill; unattended refresh-token use. Fallback: "fill kit" (template link + text + prepared photos) or Canva Bulk Create CSV.
+
+## Section 3 v3 — Cowork content agent (approved 2026-09-30)
+
+Owner proposed and approved: the content agent runs as a **Claude Cowork scheduled task on the partner's own paid Claude account** with the **Canva connector**. The ERP writes a weekly marketing brief (insights, menu/prices, promos, new beans, post performance) to Google Drive; the task reads it plus Drive `Inspiration/` and `Photos/` folders and a brand guide, plans 3–4 posts, generates Canva designs, lists photo requests, and the partner revises by chatting. Her Claude never gets database access. Supersedes v2 because it removes the Canva API integration and the code-based planning and rendering pipeline. Spike before build: brand consistency on Pro/Teams (third-party sources say connector brand kit/templates are Enterprise-only), placing her photos into designs, cloud scheduled run with the Canva and Drive connectors. Full spec: `docs/superpowers/specs/2026-09-30-operations-automation-design.md`.

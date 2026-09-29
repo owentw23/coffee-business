@@ -21,6 +21,9 @@ source: project-setup
 | Supabase project pausing | https://supabase.com/docs/guides/platform/free-project-pausing | 2026-09-30 | Free projects pause after 7 days inactivity; no free backups (third-party guides) | Backup claim from secondary sources |
 | Canva Autofill guide | https://www.canva.dev/docs/connect/autofill-guide/ | 2026-09-30 | Autofill + brand templates on Canva Pro, Teams, Enterprise; text and image fields | Multi-page autofill not documented |
 | Canva export job API | https://www.canva.dev/docs/connect/api-reference/exports/create-design-export-job/ | 2026-09-30 | PNG export, one URL per page | Unreviewed-integration and unattended-token use not confirmed |
+| Cowork scheduled tasks | https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork | 2026-09-30 | Paid plans; cloud runs while computer is off; connectors available; no local folders in cloud runs | Chat continuation after a run not documented |
+| Canva connector for Claude | https://claude.com/connectors/canva | 2026-09-30 | Tools incl. generate-design, export-design, search-designs | Plan requirements not stated; third-party sources say brand kit/templates via connector need Enterprise |
+| Vercel fair use | https://vercel.com/docs/limits/fair-use-guidelines | 2026-09-30 | Hobby plan is non-commercial only; payments count as commercial | — |
 | IRAS record keeping | https://www.iras.gov.sg/taxes/individual-income-tax/self-employed-and-partnerships/keeping-proper-records-and-accounts | 2026-09-30 | Sole proprietors keep records 5 years | Search snippet; business structure unconfirmed |
 
 Preserve local originals in `Raw/`; do not modify them during ingestion. Record incomplete access honestly.

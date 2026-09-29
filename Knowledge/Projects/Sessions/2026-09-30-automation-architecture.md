@@ -26,5 +26,8 @@ See [[Projects/Open questions]]. IG Business account and brand kit pending from 
 ## Update 2026-09-30
 Owner answered the open questions (premises settled, personal PayNow, IG Business and brand kit later) and approved section 1 with one change: no bot messages to customers. Auto-capture drafts in `Knowledge/Inbox/Auto/` were reviewed: they contained only handoff snapshots, but show real Stop and SessionEnd hook events fired 2026-09-29 16:17–16:20 UTC. Drafts deleted after curation.
 
+## Update 2026-09-30 (later)
+Section 2 approved (gone quiet = 14 days). Similar-systems review recorded in [[Resources/Similar systems review]]. Owner chose nightly-export backups and vision-based proof checks with auto-verify. Section 3 went through three versions: code-rendered carousel → Canva API templates → Cowork scheduled task with Canva connector (approved; owner's proposal). Found and corrected an earlier error: Vercel Hobby forbids commercial use. Spec written to `docs/superpowers/specs/2026-09-30-operations-automation-design.md`.
+
 ## Next action
-Present section 2 (data model; beans, finance, insights logic), then section 3 (carousel agent).
+Owner reviews the spec; then implementation plan.

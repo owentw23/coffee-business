@@ -52,9 +52,9 @@ Limits: walk-ins stay anonymous by design; IG insights need a Business/Creator a
 
 Alert only. Based on weekly demand per bean (from recipes × sales), output a list of beans and quantities to reorder ("beans low, reorder ~X kg"). She orders online herself. No automatic ordering.
 
-## Carousel (agreed)
+## Carousel (agreed 2026-09-29; superseded 2026-09-30 by the content agent below)
 
-All imagery is her real photos. AI only designs layout and base: info posts with text, scrapbook-style compositions, captions and hashtags. No AI-generated food imagery. Delivered to her via Telegram ready to post.
+Original: all imagery is her real photos; AI designs layout (HTML templates rendered in code), weekly single carousel. Superseded because the owner wants a weekly content calendar, Canva-made layouts, photo briefs, and an inspiration library.
 
 ## Dependencies
 
@@ -79,3 +79,12 @@ Vision model (small, e.g. Haiku-class) reads the screenshot into fixed fields; d
 ## Backups (agreed 2026-09-30)
 
 Supabase Free + nightly encrypted database export (scheduled GitHub Action) to private storage; monthly restore test. IRAS requires 5-year record retention.
+
+## Section 3 — content agent (revised 2026-09-30, awaiting approval)
+
+- **Inputs via Telegram, any time:** inspiration (images, links, screenshots) → inspiration library with AI notes (layout, hook, colour, why it works), style reference only, never copied; text ideas/news → idea backlog; photos → photo library or matched to an open photo brief. Ambiguous image → bot asks 💡 Inspiration / 📸 For a post.
+- **Weekly content calendar (Sunday, with digest):** 3–4 posts/week (owner, 2026-09-30). Each post: day, concept, message, goal from `weekly_insights`, format, Canva template, slide copy, caption, hashtags. Partner approves or edits in chat.
+- **Photo briefs:** reuse library photos where they match; otherwise specific shot requests with deadline. Vision check of submitted photos against the brief; minor edits only (crop, exposure, white balance, straighten). No generative imagery of products.
+- **Rendering in Canva:** 6–10 Canva brand templates designed once by the partner; registered with field limits. Canva Connect Autofill (requires Canva Pro+; owner confirms Pro/Teams) fills text and image fields; export API returns one PNG per page. Vision check for overflow/crops. Delivery the evening before or morning of post day: full-quality files, caption, and an "Open in Canva" link for manual tweaks. Partner taps Posted; IG metrics later.
+- **Rules:** prices/items from the menu DB; never name customers; only her real photos in posts; inspiration is style-only.
+- **Feasibility spike required before build:** unreviewed Connect integration usable on her account; multi-page template autofill; unattended refresh-token use. Fallback: "fill kit" (template link + text + prepared photos) or Canva Bulk Create CSV.

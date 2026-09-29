@@ -19,6 +19,8 @@ source: project-setup
 | Instagram views transition | https://docs.emplifi.io/platform/latest/home/instagram-insights-metrics-deprecation-april-2025 | 2026-09-30 | Impressions deprecated for views (April 2025) | Third-party doc of Meta change |
 | PayNow QR libraries | https://www.npmjs.com/package/@chewhx/paynowqr ; https://www.npmjs.com/package/paynowqr | 2026-09-30 | Fixed-amount PayNow QR generation | Bank-app compatibility untested |
 | Supabase project pausing | https://supabase.com/docs/guides/platform/free-project-pausing | 2026-09-30 | Free projects pause after 7 days inactivity; no free backups (third-party guides) | Backup claim from secondary sources |
+| Canva Autofill guide | https://www.canva.dev/docs/connect/autofill-guide/ | 2026-09-30 | Autofill + brand templates on Canva Pro, Teams, Enterprise; text and image fields | Multi-page autofill not documented |
+| Canva export job API | https://www.canva.dev/docs/connect/api-reference/exports/create-design-export-job/ | 2026-09-30 | PNG export, one URL per page | Unreviewed-integration and unattended-token use not confirmed |
 | IRAS record keeping | https://www.iras.gov.sg/taxes/individual-income-tax/self-employed-and-partnerships/keeping-proper-records-and-accounts | 2026-09-30 | Sole proprietors keep records 5 years | Search snippet; business structure unconfirmed |
 
 Preserve local originals in `Raw/`; do not modify them during ingestion. Record incomplete access honestly.

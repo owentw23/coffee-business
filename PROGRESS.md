@@ -12,7 +12,7 @@ Updated: 2026-09-30. This file is the authoritative current implementation statu
 
 ## Next action
 
-1. Present section 3 (carousel agent); then write the spec (confirm review amendments #1–4, #7 at spec review).
+1. Get approval of revised section 3 (content agent with Canva templates, 3–4 posts/week); then write the spec (confirm review amendments #1–4, #7 at spec review).
 2. Write the spec, self-review, and ask the owner to review it before planning.
 
 ## Recent evidence

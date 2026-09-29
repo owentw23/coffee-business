@@ -23,5 +23,6 @@ Updated: 2026-09-30. This file is the authoritative current implementation statu
 | 2026-09-28 | Private GitHub repo with vault included | Initial commit pushed to `owentw23/coffee-business`; `vault-lint` passed; see `Knowledge/Projects/Sessions/2026-09-28-github-repo.md` | No collaborators invited yet |
 | 2026-09-28 | Shared Codex and Claude workspace documented | User reports Claude Code has access to the same folder; local checkout tracks `origin/main` | Does not verify Claude runtime access or GitHub account permissions |
 | 2026-09-30 | Automation architecture decisions recorded | Owner answers in Claude Code conversation; see `Knowledge/Projects/Sessions/2026-09-30-automation-architecture.md` | Design only; SFA licence is owner-reported |
+| 2026-09-30 | Auto-capture hooks configured | Synthetic hook events piped through `scripts/vault-hook.cjs`, exit 0; see `Knowledge/Projects/Sessions/2026-09-30-auto-capture-hooks.md` | Real hook firing not yet observed; may need a new session |
 
 Historical rationale and session records live under [Knowledge/](Knowledge/START-HERE.md). Update this handoff after every meaningful milestone; keep it concise.

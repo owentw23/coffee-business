@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1010" viewBox="0 0 1600 1010" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M1 1L9 5L1 9" fill="none" stroke="#6B5B4E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="1010" fill="#FFFFFF"/>
+
+  <text x="220" y="52" text-anchor="middle" font-size="22" font-weight="bold" fill="#6B5B4E">WHO</text>
+  <text x="650" y="52" text-anchor="middle" font-size="22" font-weight="bold" fill="#6B5B4E">WHAT THEY USE</text>
+  <text x="1050" y="52" text-anchor="middle" font-size="22" font-weight="bold" fill="#6B5B4E">THE CAFÉ SYSTEM</text>
+  <text x="1420" y="52" text-anchor="middle" font-size="22" font-weight="bold" fill="#6B5B4E">WHAT COMES OUT</text>
+
+  <!-- People -->
+  <g>
+    <rect x="40" y="90" width="360" height="110" rx="16" fill="#F3E9DC" stroke="#8C6A4F" stroke-width="2"/>
+    <text x="220" y="137" text-anchor="middle" font-size="28" font-weight="bold" fill="#4A3426">Customers</text>
+    <text x="220" y="172" text-anchor="middle" font-size="21" fill="#6B5B4E">Condo residents</text>
+  </g>
+  <g>
+    <rect x="40" y="350" width="360" height="110" rx="16" fill="#F3E9DC" stroke="#8C6A4F" stroke-width="2"/>
+    <text x="220" y="397" text-anchor="middle" font-size="28" font-weight="bold" fill="#4A3426">Barista</text>
+    <text x="220" y="432" text-anchor="middle" font-size="21" fill="#6B5B4E">Serving at the counter</text>
+  </g>
+  <g>
+    <rect x="40" y="610" width="360" height="110" rx="16" fill="#F3E9DC" stroke="#8C6A4F" stroke-width="2"/>
+    <text x="220" y="657" text-anchor="middle" font-size="28" font-weight="bold" fill="#4A3426">Owners</text>
+    <text x="220" y="692" text-anchor="middle" font-size="21" fill="#6B5B4E">Checking the business</text>
+  </g>
+
+  <!-- Screens -->
+  <g>
+    <rect x="470" y="90" width="360" height="110" rx="16" fill="#E4F1EE" stroke="#2F7D6D" stroke-width="2"/>
+    <text x="650" y="137" text-anchor="middle" font-size="28" font-weight="bold" fill="#1F4F45">Pre-order form</text>
+    <text x="650" y="172" text-anchor="middle" font-size="21" fill="#2F6158">Tally · PayNow + screenshot</text>
+  </g>
+  <g>
+    <rect x="470" y="350" width="360" height="110" rx="16" fill="#E4F1EE" stroke="#2F7D6D" stroke-width="2"/>
+    <text x="650" y="397" text-anchor="middle" font-size="28" font-weight="bold" fill="#1F4F45">Counter tablet</text>
+    <text x="650" y="432" text-anchor="middle" font-size="21" fill="#2F6158">Tap drinks · PayNow or cash</text>
+  </g>
+  <g>
+    <rect x="470" y="610" width="360" height="110" rx="16" fill="#E4F1EE" stroke="#2F7D6D" stroke-width="2"/>
+    <text x="650" y="657" text-anchor="middle" font-size="28" font-weight="bold" fill="#1F4F45">Admin dashboard</text>
+    <text x="650" y="692" text-anchor="middle" font-size="21" fill="#2F6158">Menu · costs · reports</text>
+  </g>
+
+  <!-- ERP -->
+  <rect x="900" y="90" width="300" height="630" rx="20" fill="#4A3426" stroke="#4A3426" stroke-width="2"/>
+  <text x="1050" y="150" text-anchor="middle" font-size="30" font-weight="bold" fill="#FFFFFF">Café system</text>
+  <text x="1050" y="184" text-anchor="middle" font-size="20" fill="#E8D9C6">(the "ERP" database)</text>
+  <g font-size="22" fill="#FFFFFF">
+    <text x="935" y="260">• Sales &amp; pre-orders</text>
+    <text x="935" y="320">• Menu &amp; recipes</text>
+    <text x="935" y="380">• Bean stock</text>
+    <text x="935" y="440">• Costs &amp; profit</text>
+    <text x="935" y="500">• Opening hours</text>
+    <text x="935" y="560">• Weekly insights</text>
+  </g>
+  <text x="1050" y="660" text-anchor="middle" font-size="18" fill="#E8D9C6">Numbers are calculated,</text>
+  <text x="1050" y="686" text-anchor="middle" font-size="18" fill="#E8D9C6">never guessed by AI</text>
+
+  <!-- Safeguards under ERP -->
+  <g>
+    <rect x="900" y="790" width="300" height="90" rx="14" fill="#F4F4F2" stroke="#8A8A86" stroke-width="2"/>
+    <text x="1050" y="830" text-anchor="middle" font-size="23" font-weight="bold" fill="#3A3A38">AI payment check</text>
+    <text x="1050" y="862" text-anchor="middle" font-size="19" fill="#5A5A56">Reads each screenshot</text>
+  </g>
+  <g>
+    <rect x="900" y="900" width="300" height="90" rx="14" fill="#F4F4F2" stroke="#8A8A86" stroke-width="2"/>
+    <text x="1050" y="940" text-anchor="middle" font-size="23" font-weight="bold" fill="#3A3A38">Nightly backup</text>
+    <text x="1050" y="972" text-anchor="middle" font-size="19" fill="#5A5A56">Encrypted, kept 5+ years</text>
+  </g>
+
+  <!-- Outputs -->
+  <g>
+    <rect x="1270" y="90" width="300" height="160" rx="16" fill="#E9EEF8" stroke="#3E5C9A" stroke-width="2"/>
+    <text x="1420" y="136" text-anchor="middle" font-size="27" font-weight="bold" fill="#253A66">Telegram bot</text>
+    <text x="1420" y="172" text-anchor="middle" font-size="20" fill="#34508A">Order &amp; bean alerts</text>
+    <text x="1420" y="200" text-anchor="middle" font-size="20" fill="#34508A">Hours &amp; sold-out buttons</text>
+    <text x="1420" y="228" text-anchor="middle" font-size="20" fill="#34508A">Sunday summary</text>
+  </g>
+  <g>
+    <rect x="1270" y="350" width="300" height="110" rx="16" fill="#E9EEF8" stroke="#3E5C9A" stroke-width="2"/>
+    <text x="1420" y="397" text-anchor="middle" font-size="27" font-weight="bold" fill="#253A66">Weekly brief</text>
+    <text x="1420" y="432" text-anchor="middle" font-size="20" fill="#34508A">Google Drive</text>
+  </g>
+  <g>
+    <rect x="1270" y="530" width="300" height="110" rx="16" fill="#E9EEF8" stroke="#3E5C9A" stroke-width="2"/>
+    <text x="1420" y="577" text-anchor="middle" font-size="27" font-weight="bold" fill="#253A66">Claude + Canva</text>
+    <text x="1420" y="612" text-anchor="middle" font-size="20" fill="#34508A">Plans &amp; designs posts</text>
+  </g>
+  <g>
+    <rect x="1270" y="710" width="300" height="110" rx="16" fill="#E9EEF8" stroke="#3E5C9A" stroke-width="2"/>
+    <text x="1420" y="757" text-anchor="middle" font-size="27" font-weight="bold" fill="#253A66">Instagram</text>
+    <text x="1420" y="792" text-anchor="middle" font-size="20" fill="#34508A">3–4 posts a week</text>
+  </g>
+
+  <!-- Arrows: people -> screens -->
+  <g stroke="#6B5B4E" stroke-width="2.5" fill="none" marker-end="url(#a)">
+    <line x1="400" y1="145" x2="466" y2="145"/>
+    <line x1="400" y1="405" x2="466" y2="405"/>
+    <line x1="400" y1="665" x2="466" y2="665"/>
+    <line x1="830" y1="145" x2="896" y2="145"/>
+    <line x1="830" y1="405" x2="896" y2="405"/>
+    <line x1="830" y1="665" x2="896" y2="665"/>
+    <line x1="1200" y1="170" x2="1266" y2="170"/>
+    <line x1="1200" y1="405" x2="1266" y2="405"/>
+    <line x1="1420" y1="460" x2="1420" y2="526"/>
+    <line x1="1420" y1="640" x2="1420" y2="706"/>
+    <line x1="1050" y1="720" x2="1050" y2="786"/>
+  </g>
+  <text x="1420" y="870" text-anchor="middle" font-size="19" fill="#5A5A56">Barista reviews by chatting,</text>
+  <text x="1420" y="896" text-anchor="middle" font-size="19" fill="#5A5A56">then posts</text>
+</svg>

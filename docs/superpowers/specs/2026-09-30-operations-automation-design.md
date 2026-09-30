@@ -1,7 +1,7 @@
 # Operations automation — design spec
 
 - Date: 2026-09-30
-- Status: draft for owner review
+- Status: approved by owner 2026-09-30 (including review amendments and Cloudflare Pages hosting)
 - Decisions and rationale: `Knowledge/Projects/Scope decisions.md`, `Knowledge/Projects/Operations automation architecture.md`, `Knowledge/Resources/Similar systems review.md`
 
 ## 1. Purpose and success criteria
@@ -354,6 +354,6 @@ Until step 3 ships, pre-orders can run on a hand-edited Tally form.
 - Customer notifications.
 
 ## 14. Open items at review
-1. Confirm review amendments #1 (rest days), #2 (waste allowance and variance bands), #3 (IG metrics), #4 (PayNow QR library and bank tests) and #7 (rush-speed counter and manual fallback). All are included above.
-2. Confirm the hosting: staff app on Cloudflare Pages, not Vercel Hobby (no commercial use) or Vercel Pro (~USD 20/month). Supabase in Singapore. Also confirm Cloudflare R2 as the backup destination.
+1. ~~Confirm review amendments~~ Resolved 2026-09-30: approved with the spec.
+2. ~~Confirm the hosting~~ Resolved 2026-09-30: staff app on Cloudflare Pages; Supabase in Singapore; backups to Cloudflare R2.
 3. Pending from the partner: brand kit, Instagram Business account, a paid Claude plan.

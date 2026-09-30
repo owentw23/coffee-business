@@ -4,16 +4,17 @@ Updated: 2026-09-30. This file is the authoritative current implementation statu
 
 ## Current state
 
-- Stage: 2 — architecture design. Sections 1–3 approved 2026-09-30; spec written: `docs/superpowers/specs/2026-09-30-operations-automation-design.md`.
-- Latest decisions: customers order via a Tally form synced from the ERP (7-day window, no slot limits, hours and menu controlled from Telegram and admin); no offline mode on the counter; content agent is a Cowork scheduled task on the partner's Claude account with the Canva connector, fed by a weekly marketing brief in Google Drive; payment proofs auto-verified on full pass; backups via nightly export on Supabase Free.
-- Awaiting owner review of the spec, including: review amendments #1–4, #7; staff app hosting (Cloudflare Pages recommended; owner preferred Vercel, but Hobby forbids commercial use).
-- Failed or blocked: none. No code written.
-- Pending from partner: brand kit, IG Business account, paid Claude plan.
+- Stage: 3 — implementation planning. Spec approved 2026-09-30 (`docs/superpowers/specs/2026-09-30-operations-automation-design.md`), including Cloudflare Pages hosting, Supabase Singapore and R2 backups.
+- Plans: roadmap of six plans (`docs/superpowers/plans/2026-09-30-roadmap.md`); Plan 1 Foundation written in full (`docs/superpowers/plans/2026-09-30-plan-1-foundation.md`, 9 tasks, self-reviewed). Plans 2–6 are written when their predecessor merges.
+- Owner proposal: the owner will have ChatGPT produce the Word document from `docs/proposal/proposal-brief.md` plus the diagram `docs/proposal/architecture.svg` (changed from Claude generating the .docx, 2026-09-30).
+- Latest decisions: Tally pre-order form synced from the ERP (7-day window, no slot limits); no offline counter mode; Cowork content agent with Canva; auto-verified payment proofs; nightly encrypted backups to R2.
+- Failed or blocked: none. No application code written yet.
+- Pending from partner: brand kit, IG Business account, paid Claude plan, menu/recipes/bean details.
 
 ## Next action
 
-1. Owner reviews the spec; apply changes and re-run self-review.
-2. Then write the implementation plan (writing-plans skill).
+1. Owner approves Plan 1 (PROJECT_PLAN stage 3 gate) and chooses subagent-driven or inline execution.
+2. Execute Plan 1 Tasks 1–8; the owner runs Task 9 (production accounts and secrets) with guidance.
 
 ## Recent evidence
 
@@ -24,6 +25,7 @@ Updated: 2026-09-30. This file is the authoritative current implementation statu
 | 2026-09-28 | Shared Codex and Claude workspace documented | User reports Claude Code has access to the same folder; local checkout tracks `origin/main` | Does not verify Claude runtime access or GitHub account permissions |
 | 2026-09-30 | Automation architecture decisions recorded | Owner answers in Claude Code conversation; see `Knowledge/Projects/Sessions/2026-09-30-automation-architecture.md` | Design only; SFA licence is owner-reported |
 | 2026-09-30 | Auto-capture hooks configured | Synthetic hook events piped through `scripts/vault-hook.cjs`, exit 0; see `Knowledge/Projects/Sessions/2026-09-30-auto-capture-hooks.md` | Real Stop and SessionEnd events observed 2026-09-29 16:17–16:20 UTC (drafts curated and deleted 2026-09-30) |
-| 2026-09-30 | Design spec written | `docs/superpowers/specs/2026-09-30-operations-automation-design.md`; self-reviewed (timezone fix) | Not yet owner-reviewed; Canva/Cowork capabilities unverified until spike |
+| 2026-09-30 | Design spec written | `docs/superpowers/specs/2026-09-30-operations-automation-design.md`; self-reviewed (timezone fix) | Owner-approved 2026-09-30; Canva/Cowork capabilities unverified until spike |
+| 2026-09-30 | Roadmap and Plan 1 written | `docs/superpowers/plans/`; self-review fixed workspace ordering, CI build step, test count | Plan not yet executed; SQL and code untested until Task runs |
 
 Historical rationale and session records live under [Knowledge/](Knowledge/START-HERE.md). Update this handoff after every meaningful milestone; keep it concise.

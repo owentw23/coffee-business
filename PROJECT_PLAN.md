@@ -14,8 +14,8 @@ Created: 2026-09-28. Updated: 2026-09-30. This file is the authoritative plan an
 | Stage | Work | Evidence needed to complete | State |
 |---|---|---|---|
 | 1 | Define goal, scope, constraints | Owner answers recorded in vault | Done 2026-09-29 |
-| 2 | Architecture design and written spec | Sections 1–3 approved; spec committed and owner-reviewed | Spec written 2026-09-30 (`docs/superpowers/specs/2026-09-30-operations-automation-design.md`); awaiting owner review |
-| 3 | Implementation plan | Plan document approved by owner | Not started |
+| 2 | Architecture design and written spec | Sections 1–3 approved; spec committed and owner-reviewed | Done 2026-09-30 (spec approved) |
+| 3 | Implementation plan | Plan document approved by owner | Roadmap + Plan 1 written 2026-09-30 (`docs/superpowers/plans/`); awaiting owner approval |
 | 4 | Foundation: Supabase schema + RLS, admin, Telegram bot skeleton | Migrations applied; bot replies; tests pass | Not started |
 | 5 | Counter PWA (offline + manual fallback) | Offline sales sync without duplicates; PayNow QR scans on DBS/OCBC/UOB | Not started |
 | 6 | Pre-orders: order page, proof check, bot flows | 20 test orders end to end, incl. flagged and duplicate proofs | Not started |

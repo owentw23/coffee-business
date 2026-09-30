@@ -9,6 +9,8 @@ source: owner-conversation-2026-09-29
 
 Design in progress (brainstorming, architectural path). Agreed choices are logged in [[Projects/Scope decisions]]; unresolved items in [[Projects/Open questions]]. Session record: [[Projects/Sessions/2026-09-30-automation-architecture]].
 
+The approved design is explained for the café owner in `docs/proposal/Cafe-Operations-System-Proposal.docx`, built from `docs/proposal/proposal-brief.md` and `docs/proposal/architecture.svg` on 2026-09-30. See [[Projects/Sessions/2026-09-30-owner-proposal]] for the document checks and remaining review.
+
 ## Goal
 
 The partner (barista) should only need to: make coffee, attend to pre-orders, order beans when told, check cost/revenue, and post a weekly AI-built Instagram carousel. Everything else is automated.

@@ -103,3 +103,7 @@ Replaces the custom order page. `tally-webhook` (signature check, price recomput
 
 The business model changed the shape of the system; the current design is spec v2 (`docs/superpowers/specs/2026-10-11-operations-automation-design-v2.md`). New: a bean cycle engine (14-day A/B pairs, Saturday start, automatic mystery → reveal switch on day 8, next-pair ordering), a 6pm brew list for weekday cold brew pre-orders, a counter game flow (mobile-gated one try, barista-judged free text, giveaways at S$0 revenue with cost kept), cycle-aware content with a reveal embargo. Unchanged: Supabase ERP, Tally with ERP sync, AI proof check, Telegram inbox, Cloudflare Pages, R2 backups, Cowork + Canva.
 
+### v2 revision (2026-10-11, later): website + all-in-one staff app
+
+Tally is dropped. The public site (`<domain>`, React + Vite on Cloudflare Pages) reads only through the SQL function `site_snapshot()`, which enforces the reveal embargo, and writes only through `place-order` / `submit-proof` behind Cloudflare Turnstile; with our own form the pre-order PayNow QR can carry the exact amount and order code again. The staff app (`staff.<domain>`) is one tablet PWA: counter, orders, dashboard, website and form controls, beans and cycles, settings. Cold brew = black/white + milk modifiers on house beans; premium beans feed the weekend A/B cycle. Plan set: `docs/superpowers/plans/2026-10-11-roadmap-v2.md` (7 plans; Plan 1 v2 written in full).
+

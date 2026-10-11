@@ -29,3 +29,12 @@ Captured from auto-capture drafts (unverified assistant output, curated 2026-10-
 - Food safety: non-pasteurised cold brew must stay at 5°C or below; short pickup window (e.g. 7:00–9:30), brew the day before, short use-by date; test with a thermometer before launch.
 - Open, owner to answer: can passers-by/customers reach the balcony without entering the condo? Is the café fridge already on the balcony? Does the SFA licence cover unattended pickup (a self-service fridge may count as a vending machine)?
 
+## Spec v2 open items (2026-10-11)
+
+- Weekend menu. Owner: owners.
+- Weekday pickup times and handover spot. Owner: owners.
+- Cold brew bottle size, prices (black/white), brew ratio, yield. Owner: barista.
+- How close a guess must be (per cycle). Owner: barista.
+- Domain name for `<domain>` / `staff.<domain>`. Owner: owner.
+- Confirm: cold brew has no A/B mystery choice (house bean only). Owner: owners.
+

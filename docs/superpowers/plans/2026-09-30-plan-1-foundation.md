@@ -1,5 +1,7 @@
 # Plan 1: Foundation — Implementation Plan
 
+> **Superseded 2026-10-11** by `2026-10-11-roadmap-v2.md` / `2026-10-11-plan-1-foundation-v2.md`. Do not execute.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Stand up the repo, the Supabase schema with row-level security, the `record_sale` function, a Telegram bot skeleton, and a staff web app with login and menu editing, deployed to production.

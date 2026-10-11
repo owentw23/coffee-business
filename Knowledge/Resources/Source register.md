@@ -29,6 +29,11 @@ source: project-setup
 | Youform / OpnForm | https://youform.com/pricing/ ; https://opnform.com/pricing | 2026-09-30 | Unlimited free submissions; OpnForm uploads on Pro | Search snippets |
 | Zoho Forms pricing / choice availability | https://www.zoho.com/forms/pricing.html ; https://www.zoho.com/forms/articles/forms/choice-availability.html | 2026-09-30 | Free 3 forms, 500 submissions/month; per-option quantity limits | Webhooks on free unconfirmed |
 | Jotform free plan | https://www.jotform.com/help/jotform-free-vs-paid-what-are-the-differences-between-the-free-and-paid-plans/ | 2026-09-30 | 100 submissions/month; 5 forms | Third-party sources conflict on free webhooks |
+| Claude plans | https://claude.com/pricing | 2026-10-11 | Pro US$17/month annual (US$200/year) or US$20 monthly; Max from US$100/month; Pro includes Claude Code | Scheduled-task inclusion on Pro not stated explicitly |
+| Claude API model prices | claude-api skill model table (cached 2026-10-06) | 2026-10-11 | Haiku 5.5 US$0.10/US$0.50, Sonnet 5.5 US$2/US$10 per M tokens | Cached table; recheck at build time |
+| Cloudflare R2 pricing | https://developers.cloudflare.com/r2/pricing/ | 2026-10-11 | Free 10 GB-month, 1M Class A, 10M Class B, free egress | Standard storage only |
+| GitHub Actions billing | https://docs.github.com/en/billing/concepts/product-billing/github-actions | 2026-10-11 | 2,000 free minutes/month for private repos on GitHub Free | — |
+| Cloudflare Registrar | https://www.cloudflare.com/products/registrar/ | 2026-10-11 | At-cost pricing, 430+ TLDs | No .com price on page; .sg support unconfirmed |
 | IRAS record keeping | https://www.iras.gov.sg/taxes/individual-income-tax/self-employed-and-partnerships/keeping-proper-records-and-accounts | 2026-09-30 | Sole proprietors keep records 5 years | Search snippet; business structure unconfirmed |
 
 Preserve local originals in `Raw/`; do not modify them during ingestion. Record incomplete access honestly.

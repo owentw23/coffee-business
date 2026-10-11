@@ -12,9 +12,9 @@ Updated: 2026-10-11. This file is the authoritative current implementation statu
 
 ## Next action
 
-1. Owner reviews spec v2 and Plan 1 v2; confirm cold brew has no A/B choice.
-2. Pick a domain (needed in Plan 1 Task 11).
-3. Execute Plan 1 v2 (subagent-driven recommended).
+1. Owner reviews spec v2 and Plan 1 v2 (cold brew no A/B: confirmed).
+2. Execute Plan 1 v2 Tasks 1–10 **locally** (subagent-driven recommended); Task 11 (domain + production) deferred by owner.
+3. Initial cost projection: `Knowledge/Resources/Cost projection.md` (≈ S$27/month after launch; S$0 while building locally).
 
 ## Recent evidence
 

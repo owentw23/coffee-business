@@ -9,6 +9,7 @@ source: project-setup
 
 - [[Projects/Operations automation architecture]]
 - [[Projects/Scope decisions]]
+- [[Resources/Cost projection]]
 - [[Projects/Open questions]]
 - [[Resources/Source register]]
 - [[Projects/Sessions/2026-09-28-project-setup]]

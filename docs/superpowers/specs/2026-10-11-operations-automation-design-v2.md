@@ -318,6 +318,6 @@ Then a pilot: one full 14-day cycle.
 2. Weekday pickup times and the handover spot.
 3. Cold brew bottle size, prices (black and white), ratio and yield.
 4. How close a guess must be (set per cycle; the barista decides).
-5. **Domain name** (needed for `staff.<domain>`).
+5. **Domain name** (needed for `staff.<domain>`). Deferred: the owner builds and drafts locally first; production setup (Plan 1 Task 11) waits.
 6. Carried over: brand kit, IG Business account, the barista's paid Claude plan, Canva/Cowork spike, a refresh of the owner proposal for v2.
-7. **Assumption to confirm:** cold brew uses house bean(s) with no A/B choice; the A/B cycle and game are weekend-only.
+7. ~~Assumption to confirm~~ Confirmed 2026-10-11: cold brew uses house bean(s) with no A/B choice; the A/B cycle and game are weekend-only.

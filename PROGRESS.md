@@ -8,6 +8,7 @@ Updated: 2026-10-11. This file is the authoritative current implementation statu
 - Customer side is now our own **website** (menu of the week, info, about, pre-order form); staff side is an **all-in-one staff web app** at `staff.<domain>`. Tally dropped.
 - Spec: `docs/superpowers/specs/2026-10-11-operations-automation-design-v2.md` (draft, awaiting owner review). Plans: `docs/superpowers/plans/2026-10-11-roadmap-v2.md` (7 plans) and `2026-10-11-plan-1-foundation-v2.md` (11 tasks, self-reviewed). Old roadmap/Plan 1 marked superseded.
 - Owner proposal Word document (`docs/proposal/`) describes v1; needs a v2 refresh.
+- Work split (2026-10-11): owner = back end (Plans 1–6); other owner = content engine (Plan 7, `marketing/`). Shared repo `owentw23/coffee-business`; pull before starting, commit only your own area.
 - Failed or blocked: none. No application code written yet.
 
 ## Next action

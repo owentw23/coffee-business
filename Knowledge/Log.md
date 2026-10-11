@@ -27,3 +27,4 @@ Append a concise dated line after substantive vault work. Link the relevant sess
 - 2026-10-11: Business model clarified (weekday cold brew pre-orders, weekend shop, 14-day mystery A/B bean cycles, counter guessing game); architecture rebuilt and spec v2 drafted; Plan 1 flagged for revision; see [[Projects/Operations automation architecture]].
 - 2026-10-11: Tally replaced by our own website + all-in-one staff web app; cold brew milk options and separate beans added; roadmap v2 (7 plans) and Plan 1 v2 (11 tasks) written; see [[Projects/Operations automation architecture]].
 - 2026-10-11: Confirmed cold brew has no A/B choice; owner will build locally first (domain later). Wrote initial [[Resources/Cost projection]] (S$0 local; ≈ S$27/month live, mostly the barista's Claude plan).
+- 2026-10-11: Recorded work split (owner: back end; other owner: content engine) and pushed the repo to GitHub for collaboration.

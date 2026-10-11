@@ -4,7 +4,7 @@ Created: 2026-09-28. Updated: 2026-09-30. This file is the authoritative plan an
 
 ## Goal and scope
 
-- Goal: Automate operations for a condo-balcony café in Singapore so the partner only makes coffee, attends to pre-orders, orders beans when alerted, checks cost/revenue, and posts 3–4 AI-prepared Instagram posts a week. Spec: `docs/superpowers/specs/2026-09-30-operations-automation-design.md`. Design history: `Knowledge/Projects/Operations automation architecture.md`.
+- Goal: Automate operations for a condo-balcony café in Singapore so the partner only makes coffee, attends to pre-orders, orders beans when alerted, checks cost/revenue, and posts 3–4 AI-prepared Instagram posts a week. Business model (2026-10-11): weekday cold brew pre-orders, weekend balcony shop, 14-day mystery/revealed A/B bean cycles with a counter guessing game; current spec `docs/superpowers/specs/2026-10-11-operations-automation-design-v2.md`. Spec: `docs/superpowers/specs/2026-09-30-operations-automation-design.md`. Design history: `Knowledge/Projects/Operations automation architecture.md`.
 - In scope: customer pre-order page; counter tablet transaction entry; Supabase ERP; Telegram bot (partner and owner only); automatic payment-proof checks; bean reorder alerts; cost/revenue reporting; insights layer; weekly marketing brief; Cowork content agent (3–4 posts/week, Canva).
 - Out of scope (v1): payment providers or card payments; automatic bean ordering; AI-generated food imagery; "ask the ERP" chat queries; loyalty stamp card; customer notifications; auto-publishing to Instagram; brand concept work (partner owns it).
 - Constraints: PayNow and cash only; low running cost; maintained by the owner with Claude Code/Codex.
@@ -14,7 +14,7 @@ Created: 2026-09-28. Updated: 2026-09-30. This file is the authoritative plan an
 | Stage | Work | Evidence needed to complete | State |
 |---|---|---|---|
 | 1 | Define goal, scope, constraints | Owner answers recorded in vault | Done 2026-09-29 |
-| 2 | Architecture design and written spec | Sections 1–3 approved; spec committed and owner-reviewed | Done 2026-09-30 (spec approved) |
+| 2 | Architecture design and written spec | Sections 1–3 approved; spec committed and owner-reviewed | v1 approved 2026-09-30; **reopened 2026-10-11** for spec v2 (cold brew + bean cycles + game), awaiting owner review |
 | 3 | Implementation plan | Plan document approved by owner | Roadmap + Plan 1 written 2026-09-30 (`docs/superpowers/plans/`); awaiting owner approval |
 | 4 | Foundation: Supabase schema + RLS, admin, Telegram bot skeleton | Migrations applied; bot replies; tests pass | Not started |
 | 5 | Counter PWA (offline + manual fallback) | Offline sales sync without duplicates; PayNow QR scans on DBS/OCBC/UOB | Not started |

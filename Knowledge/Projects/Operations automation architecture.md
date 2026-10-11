@@ -98,3 +98,8 @@ Owner proposed and approved: the content agent runs as a **Claude Cowork schedul
 ## Customer ordering via Tally (agreed 2026-09-30)
 
 Replaces the custom order page. `tally-webhook` (signature check, price recomputation from the ERP, hours check, screenshot copy, background proof check) and `tally-sync` (rebuilds pickup days and times, menu and open/closed status via `PATCH /forms/{id}`) replace `place-order` and `submit-proof`. Hours and menu are controlled in admin or on Telegram. A Tally API spike comes first; fallback is manual Tally edits caught by the webhook checks. Details in the spec, section 5.1.
+
+## v2 (2026-10-11): cold brew, bean cycles and the mystery game
+
+The business model changed the shape of the system; the current design is spec v2 (`docs/superpowers/specs/2026-10-11-operations-automation-design-v2.md`). New: a bean cycle engine (14-day A/B pairs, Saturday start, automatic mystery → reveal switch on day 8, next-pair ordering), a 6pm brew list for weekday cold brew pre-orders, a counter game flow (mobile-gated one try, barista-judged free text, giveaways at S$0 revenue with cost kept), cycle-aware content with a reveal embargo. Unchanged: Supabase ERP, Tally with ERP sync, AI proof check, Telegram inbox, Cloudflare Pages, R2 backups, Cowork + Canva.
+

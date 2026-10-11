@@ -1,7 +1,7 @@
 # Operations automation — design spec
 
 - Date: 2026-09-30
-- Status: approved by owner 2026-09-30 (including review amendments and Cloudflare Pages hosting)
+- Status: **superseded 2026-10-11 by `2026-10-11-operations-automation-design-v2.md`** (business model clarified: weekday cold brew pre-orders, weekend shop, 14-day A/B bean cycles, mystery game). Approved by owner 2026-09-30 (including review amendments and Cloudflare Pages hosting)
 - Decisions and rationale: `Knowledge/Projects/Scope decisions.md`, `Knowledge/Projects/Operations automation architecture.md`, `Knowledge/Resources/Similar systems review.md`
 
 ## 1. Purpose and success criteria
